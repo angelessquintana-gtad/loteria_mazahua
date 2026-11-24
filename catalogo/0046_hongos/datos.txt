@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Kjojo
+traduccion_espanol= Hongos

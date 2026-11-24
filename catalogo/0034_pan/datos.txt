@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Trjomechi
+traduccion_espanol= Pan

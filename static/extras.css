@@ -1,0 +1,176 @@
+/* Estilos de las páginas Videos (YouTube) y Simulador.
+   Usa la misma paleta vino/rosa del resto de la interfaz. */
+.home .role-options{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){.home .role-options{grid-template-columns:1fr}}
+
+/* ---------- Videos de YouTube ---------- */
+.videos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:26px;margin:10px 0 40px}
+.video-card{display:flex;flex-direction:column;background:#fffdfa;border:1px solid #dcbfc7;border-radius:14px;overflow:hidden;box-shadow:0 4px 0 #e8c6c9;color:inherit;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease}
+a.video-card:hover,a.video-card:focus-visible{transform:translateY(-3px);box-shadow:0 8px 0 #e0b3b9}
+a.video-card:focus-visible{outline:3px solid #bf2457;outline-offset:3px}
+.video-miniatura{position:relative;aspect-ratio:16/9;background:#4e1831;display:grid;place-items:center;overflow:hidden}
+.video-miniatura img{width:100%;height:100%;object-fit:cover;display:block}
+.video-play{position:absolute;width:72px;height:50px;border-radius:14px;background:#e01e2b;display:grid;place-items:center;box-shadow:0 4px 14px #0006}
+.video-play::after{content:"";border-style:solid;border-width:11px 0 11px 19px;border-color:transparent transparent transparent #fff;margin-left:4px}
+.video-pendiente .video-miniatura{background:repeating-linear-gradient(135deg,#f8e6e9 0 14px,#f3d9de 14px 28px)}
+.video-pendiente .video-play{background:#b9909c}
+.video-info{padding:18px 20px 22px}
+.video-info h2{font-size:20px;margin:0 0 8px;color:#74203d}
+.video-info p{margin:0;color:#69505a;line-height:1.55}
+.video-estado{display:inline-block;margin-top:14px;font-size:13px;font-weight:700;color:#74203d}
+.video-pendiente .video-estado{color:#8b5017}
+.nota-videos{background:#f8e6e9;border:1px dashed #d9a9b6;border-radius:12px;padding:16px 18px;color:#4e1831;margin-bottom:26px;line-height:1.55}
+.nota-videos code{background:#fffdfa;padding:1px 6px;border-radius:5px}
+
+/* ---------- Simulador de lotería ---------- */
+.sim-layout{display:grid;grid-template-columns:minmax(260px,360px) minmax(0,1fr);gap:28px;align-items:start;margin-bottom:40px}
+.sim-panel{background:#fffdfa;border:1px solid #dcbfc7;border-radius:16px;padding:22px;box-shadow:0 4px 0 #e8c6c9}
+.sim-panel h2{margin:0 0 6px;color:#74203d;font-size:21px}
+.sim-carta{margin:16px 0;border:2px solid #74203d;border-radius:14px;background:#f8eee9;text-align:center;padding:14px;min-height:300px;display:flex;flex-direction:column;justify-content:center}
+.sim-carta img{width:100%;max-height:220px;object-fit:contain}
+.sim-carta .sim-mazahua{font-size:26px;font-weight:800;color:#74203d;margin:10px 0 2px;overflow-wrap:anywhere}
+.sim-carta .sim-espanol{font-size:17px;margin:0}
+.sim-carta .sim-vacia{color:#69505a}
+.sim-botones{display:flex;flex-wrap:wrap;gap:10px}
+.sim-botones button{min-width:0;flex:1 1 140px}
+.sim-botones button.secundario{background:#f8e6e9;color:#74203d;border:1px solid #d9a9b6}
+.sim-opciones{margin:14px 0 0;display:flex;flex-direction:column;gap:8px;font-size:15px}
+.sim-opciones label{display:flex;gap:8px;align-items:center;font-weight:500}
+.sim-opciones input{width:auto;margin:0}
+.sim-historial{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.sim-historial img{width:44px;height:44px;object-fit:contain;background:#f8eee9;border:1px solid #dcbfc7;border-radius:6px}
+.sim-tablero{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.sim-tablero button.sim-casilla.sim-casilla{position:relative;min-width:0;min-height:0;padding:8px;border-radius:12px;border:2px solid #dcbfc7;background:#fffdfa;color:#351d29;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;font-size:14px;font-weight:600;box-shadow:none}
+.sim-casilla img{width:100%;aspect-ratio:1;object-fit:contain;background:#f8eee9;border-radius:8px}
+.sim-casilla span{overflow-wrap:anywhere;text-align:center;line-height:1.2}
+.sim-casilla small{font-weight:400;color:#69505a}
+.sim-tablero button.sim-casilla.sim-casilla:hover{color:#351d29;background:#fffdfa;border-color:#bf2457}
+.sim-tablero button.sim-casilla.sim-casilla.marcada{border-color:#74203d;background:#f8e6e9}
+.sim-casilla.marcada::after{content:"";position:absolute;top:26%;left:50%;width:36%;max-width:56px;aspect-ratio:4/3;transform:translateX(-50%) rotate(-12deg);background:transparent url("/static/frijol.svg") center / contain no-repeat;filter:drop-shadow(0 3px 3px #0004);pointer-events:none}
+.sim-casilla.error{animation:sacudir .35s}
+@keyframes sacudir{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.sim-mensaje{min-height:26px;font-weight:700;color:#74203d;margin:12px 0 0}
+.sim-mensaje.error{color:#a42640}
+.sim-ganaste{background:#74203d;color:#fff;border-radius:14px;padding:18px;text-align:center;font-size:22px;font-weight:800;margin-bottom:16px}
+@media(max-width:860px){.sim-layout{grid-template-columns:1fr}.sim-carta{min-height:0}}
+@media(max-width:480px){.sim-tablero{gap:6px}.sim-casilla{padding:4px;font-size:12px}.sim-casilla small{display:none}}
+
+/* ---------- Editor sencillo del vocabulario (/editar) ---------- */
+.ed-barra{display:flex;gap:14px;align-items:center;margin-bottom:8px}
+.ed-barra input{margin:0;flex:1;max-width:620px}
+.ed-barra button{white-space:nowrap}
+.ed-mensaje{margin:10px 0 18px;font-weight:600;color:#74203d}.ed-mensaje.error{color:#a42640}
+.ed-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:18px;margin-bottom:40px}
+.ed-ficha{display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;background:#fffdfa;border:1px solid #dcbfc7;border-radius:14px;padding:14px;box-shadow:0 3px 0 #e8c6c9}
+.ed-ficha img{width:110px;height:110px;object-fit:contain;background:#f8eee9;border-radius:10px}
+.ed-info h2{font-size:20px;color:#74203d;overflow-wrap:anywhere}
+.ed-esp{font-weight:700;margin:2px 0 6px}
+.ed-desc{font-size:13px;color:#69505a;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ed-estado{font-size:12px;color:#69505a;margin:6px 0}
+.ed-acciones{display:flex;gap:8px;flex-wrap:wrap}.ed-acciones button{min-height:36px;padding:7px 14px}
+.ed-acciones button.danger{background:#fff;color:#a42640;border-color:#e3b3bd}
+.ed-dialogo{width:min(760px,94vw);max-height:92vh;border:0;border-radius:16px;padding:26px;box-shadow:0 20px 60px #0005}
+.ed-dialogo::backdrop{background:#2b1a2299}
+.ed-dialogo h2{color:#74203d;margin-bottom:6px}
+.ed-dialogo textarea{width:100%;padding:12px;border:1px solid #d9b8c1;border-radius:8px;font:inherit;resize:vertical}
+.ed-archivos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:6px}
+.ed-archivos>div{border:1px dashed #d9a9b6;border-radius:10px;padding:10px;min-width:0}
+.ed-archivos label{margin-top:0}.ed-archivos input{font-size:13px;margin:6px 0 2px;padding:8px}
+.ed-archivos img{width:100%;height:110px;object-fit:contain;background:#f8eee9;border-radius:8px}
+.ed-archivos audio{width:100%;height:38px}.ed-archivos small{font-size:11px;color:#69505a}
+.ed-avanzado{margin-top:14px}
+.ed-error{color:#a42640;font-weight:600;min-height:22px;margin-top:10px}
+.ed-botones{display:flex;gap:10px}.ed-botones button{flex:1}
+@media(max-width:700px){.ed-barra{flex-direction:column;align-items:stretch}.ed-archivos{grid-template-columns:1fr}}
+
+/* Aviso de primer administrador en /acceso */
+.primer-admin{background:#f8e6e9;border:1px solid #e3b3bd;color:#4e1831;border-radius:10px;padding:12px 14px;line-height:1.5;font-weight:600;margin-bottom:6px}
+
+.ed-grabar{width:100%;margin-top:8px;min-height:36px;padding:6px 10px;font-size:13px}
+.voz-boton{min-height:38px;padding:7px 14px;font-size:14px}
+
+/* Imagen que falta (por ejemplo, si no se copió la carpeta uploads) */
+.img-faltante{display:grid;place-items:center;aspect-ratio:1;width:100%;background:repeating-linear-gradient(135deg,#f8e6e9 0 12px,#f3d9de 12px 24px);color:#74203d;font-weight:700;font-size:14px;text-align:center;border-radius:8px;padding:8px}
+.ed-faltante{width:110px;height:110px;aspect-ratio:auto;font-size:12px}
+
+/* ---------- Navegación: Inicio · Regresar · Cerrar sesión ---------- */
+.app-nav{flex-wrap:wrap;gap:12px}
+.nav-acciones{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-left:auto}
+.nav-acciones .nav-boton{display:inline-flex;align-items:center;min-height:38px;padding:7px 14px;border-radius:999px;border:1px solid #d9a9b6;background:#fffdfa;color:#74203d;font-weight:700;font-size:14px;text-decoration:none;cursor:pointer;box-shadow:none;width:auto}
+.nav-acciones .nav-boton:hover{background:#f8e6e9}
+.nav-acciones .nav-salir{background:#74203d;color:#fff;border-color:#74203d}
+.nav-acciones .nav-salir:hover{background:#5c1830}
+.nav-acciones .nav-usuario{font-weight:700;color:#4e1831;font-size:14px;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav-acciones [hidden]{display:none!important}
+@media(max-width:640px){.nav-acciones{margin-left:0;width:100%}.nav-acciones .nav-boton{flex:1;justify-content:center}}
+
+/* ---------- Portada: opciones del docente ---------- */
+.role-docente{cursor:default}
+.role-botones{display:flex;flex-direction:column;gap:10px;margin-top:auto;padding-top:14px}
+.boton-rol{display:block;text-align:center;padding:11px 14px;border-radius:10px;background:#74203d;color:#fff!important;font-weight:700;text-decoration:none}
+.boton-rol.secundario{background:#fffdfa;color:#74203d!important;border:1px solid #d9a9b6}
+.boton-rol:hover{filter:brightness(1.08)}
+
+/* ---------- Mensajes de confirmación / error ---------- */
+.aviso-ok{background:#e7f4ec;border:1px solid #9ccbb0;color:#1f5b39;border-radius:10px;padding:12px 14px;font-weight:600;margin:12px 0}
+.aviso-error{background:#fbe9ec;border:1px solid #e3b3bd;color:#8f1f38;border-radius:10px;padding:12px 14px;font-weight:600;margin:12px 0}
+.aviso-ok:empty,.aviso-error:empty{display:none}
+
+/* ---------- Panel del docente ---------- */
+.panel-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:18px;margin:8px 0 34px}
+.panel-opcion{display:flex;flex-direction:column;gap:8px;padding:22px;border-radius:16px;background:#fffdfa;border:1px solid #dcbfc7;box-shadow:0 4px 0 #e8c6c9;color:inherit;text-decoration:none;transition:transform .15s}
+.panel-opcion:hover{transform:translateY(-3px)}
+.panel-opcion .icono{font-size:30px}
+.panel-opcion h2{font-size:20px;color:#74203d;margin:0}
+.panel-opcion p{margin:0;color:#69505a;line-height:1.5}
+.tabla-partidas{width:100%;border-collapse:collapse;font-size:15px}
+.tabla-partidas th,.tabla-partidas td{text-align:left;padding:10px;border-bottom:1px solid #ecd6db}
+.tabla-partidas th{color:#74203d}
+
+/* ---------- Acceso docente ---------- */
+.pestanas{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:#f8e6e9;padding:5px;border-radius:12px;margin-bottom:18px}
+.pestanas button{background:transparent!important;color:#74203d!important;border:0;box-shadow:none;min-height:42px;font-weight:700}
+.pestanas button[aria-selected="true"]{background:#fffdfa!important;box-shadow:0 2px 6px #74203d22}
+.enlace-boton{background:none!important;border:0!important;color:#74203d!important;text-decoration:underline;box-shadow:none!important;width:auto!important;padding:6px 0!important;min-height:0!important;margin-top:10px;font-weight:600}
+.auth-panel form button[type=submit]{width:100%;margin-top:16px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:600px){.grid-2{grid-template-columns:1fr}}
+.ed-quitar{display:flex!important;align-items:center;gap:6px;font-size:13px;color:#a42640;margin-top:8px;font-weight:600}
+.ed-quitar[hidden]{display:none!important}
+.ed-quitar input{width:auto;margin:0}
+.app-nav .nav-catalogo{display:flex;gap:18px;flex-wrap:wrap}
+.nav-acciones button.nav-boton.nav-boton{background:#fffdfa;color:#74203d;border:1px solid #d9a9b6;min-width:0}
+.nav-acciones button.nav-boton.nav-boton:hover{background:#f8e6e9}
+.nav-acciones button.nav-salir.nav-salir{background:#74203d;color:#fff;border-color:#74203d}
+.pestanas button{border:0!important}
+.pestanas button[aria-selected="true"]{background:#74203d!important;color:#fff!important}
+
+/* ---------- Ojito para ver la contraseña ---------- */
+.campo-contrasena{position:relative}
+.campo-contrasena input{padding-right:52px!important;width:100%}
+.campo-contrasena button.ver-contrasena.ver-contrasena{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:42px!important;min-width:0;height:38px;min-height:0;padding:0!important;margin:0!important;display:grid;place-items:center;background:transparent!important;color:#74203d!important;border:0!important;box-shadow:none!important;border-radius:8px;cursor:pointer}
+.campo-contrasena button.ver-contrasena:hover{background:#f8e6e9!important}
+.campo-contrasena button.ver-contrasena:focus-visible{outline:3px solid #bf2457;outline-offset:1px}
+.campo-contrasena{margin-bottom:14px}
+.campo-contrasena input{margin-bottom:0!important}
+
+/* Menú de la cuenta del docente (esquina superior derecha) */
+.menu-cuenta{position:relative}
+.menu-cuenta>button.menu-cuenta-boton{display:flex;align-items:center;gap:8px;min-width:0;min-height:0;padding:5px 12px 5px 5px;border-radius:999px;border:1px solid #dcbfc7;background:#fffdfa;color:#74203d;font-weight:700;font-size:15px;box-shadow:none;cursor:pointer}
+.menu-cuenta>button.menu-cuenta-boton:hover,.menu-cuenta>button.menu-cuenta-boton[aria-expanded="true"]{background:#f8e6e9;color:#74203d}
+.menu-cuenta-inicial{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#74203d;color:#fff;font-size:15px}
+.menu-cuenta-lista{position:absolute;right:0;top:calc(100% + 8px);z-index:50;min-width:240px;background:#fffdfa;border:1px solid #dcbfc7;border-radius:14px;box-shadow:0 10px 28px #4a1a2a33;padding:8px}
+.menu-cuenta-lista[hidden]{display:none}
+.menu-cuenta-datos{padding:8px 10px 10px;border-bottom:1px solid #f0dde2;margin-bottom:6px}
+.menu-cuenta-datos strong{display:block;color:#351d29}
+.menu-cuenta-datos small{color:#69505a;overflow-wrap:anywhere}
+.menu-cuenta-lista a,.menu-cuenta-lista button{display:block;width:100%;text-align:left;padding:9px 10px;border-radius:8px;border:0;background:none;color:#351d29;font:inherit;font-size:15px;font-weight:500;text-decoration:none;min-height:0;box-shadow:none;cursor:pointer}
+.menu-cuenta-lista a:hover,.menu-cuenta-lista button:hover{background:#f8e6e9;color:#74203d}
+.menu-cuenta-lista button.nav-salir{color:#a42640;border-top:1px solid #f0dde2;border-radius:0 0 8px 8px;margin-top:6px}
+@media(max-width:600px){.menu-cuenta-nombre{display:none}.menu-cuenta>button.menu-cuenta-boton{padding:4px}}
+.nav-acciones .menu-cuenta-lista button.nav-salir:hover{background:#f8e6e9;color:#a42640}
+.panel-grid:has(> .panel-opcion:nth-child(3):last-child){grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.nav-acciones .menu-cuenta-lista button.nav-salir.nav-salir{background:none;color:#a42640;border:0;border-top:1px solid #f0dde2;font-weight:700}
+.nav-acciones .menu-cuenta-lista button.nav-salir.nav-salir:hover{background:#f8e6e9;color:#a42640}
+.nav-acciones .menu-cuenta{margin-left:auto}
+@media(max-width:640px){.nav-acciones .menu-cuenta-lista{max-width:calc(100vw - 32px)}}

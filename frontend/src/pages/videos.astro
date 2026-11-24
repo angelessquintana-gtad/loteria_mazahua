@@ -1,0 +1,14 @@
+---
+// Página pública de evidencias en video. Los datos vienen de FastAPI (/api/videos),
+// que a su vez lee el archivo videos_youtube.json de la raíz del proyecto.
+import Pagina from '../layouts/Pagina.astro';
+---
+<Pagina titulo="Videos del proyecto">
+  <header class="hero"><h1>Videos del proyecto.</h1><p>Demostraciones en YouTube del backend, el frontend, el consumo de la API y los recursos multimedia. Haz clic en una miniatura para abrir el video.</p></header>
+  <section aria-label="Videos de YouTube">
+    <p id="mensajeVideos" role="status" aria-live="polite">Cargando videos…</p>
+    <div id="listaVideos" class="videos-grid" aria-busy="true"></div>
+    <p class="nota-videos" id="notaVideos" hidden>¿Faltan enlaces? Pégalos en <strong>Administración → Videos de YouTube</strong>, o edita el archivo <code>videos_youtube.json</code> en la carpeta principal del proyecto y recarga esta página.</p>
+  </section>
+  <script is:inline src="/static/videos.js?v=1"></script>
+</Pagina>

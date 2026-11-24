@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Pjiño
+traduccion_espanol= Hierba

@@ -1,0 +1,24 @@
+{
+  "videos": [
+    {
+      "titulo": "Backend con FastAPI y Swagger UI",
+      "descripcion": "Registro, consulta, edición, búsqueda y eliminación de elementos desde la API documentada en /docs.",
+      "url": ""
+    },
+    {
+      "titulo": "Frontend con Astro",
+      "descripcion": "Recorrido por la portada, el catálogo de vocabulario, la búsqueda y la página de videos.",
+      "url": ""
+    },
+    {
+      "titulo": "Consumo de la API desde el frontend",
+      "descripcion": "Cómo las páginas de Astro obtienen la información de FastAPI mediante solicitudes HTTP.",
+      "url": ""
+    },
+    {
+      "titulo": "Recursos multimedia y dinámica de la lotería",
+      "descripcion": "Subida de imágenes, audios y videos; reproducción de pronunciaciones y partida simulada en el navegador.",
+      "url": ""
+    }
+  ]
+}

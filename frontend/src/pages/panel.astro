@@ -1,0 +1,18 @@
+---
+// Panel principal del docente (se llega aquí al iniciar sesión).
+import Pagina from '../layouts/Pagina.astro';
+---
+<Pagina titulo="Panel del docente" privada>
+  <header class="hero"><h1 id="saludo">Panel del docente.</h1><p>Desde aquí creas partidas para tu grupo y administras las tarjetas con sus imágenes y audios. Tus datos y tu contraseña están en el menú de tu nombre, arriba a la derecha.</p></header>
+  <div class="panel-grid">
+    <a class="panel-opcion" href="/docente"><span class="icono" aria-hidden="true">🎲</span><h2>Crear e iniciar partidas</h2><p>Nombre y límite de alumnos, código QR, lista de alumnos, iniciar, cantar cartas y finalizar.</p></a>
+    <a class="panel-opcion" href="/editar"><span class="icono" aria-hidden="true">🃏</span><h2>Administrar tarjetas</h2><p>Agregar, editar o eliminar tarjetas: nombres en español y mazahua, descripción, imágenes y audios.</p></a>
+    <a class="panel-opcion" href="/vocabulario"><span class="icono" aria-hidden="true">📖</span><h2>Ver vocabulario</h2><p>Consulta las cartas tal como las ven los alumnos y escucha su pronunciación.</p></a>
+  </div>
+  <section class="panel" aria-labelledby="misPartidas">
+    <div class="heading"><h2 id="misPartidas">Mis partidas recientes</h2><a href="/docente">＋ Nueva partida</a></div>
+    <p id="mensajePartidas" class="note" role="status">Cargando…</p>
+    <div style="overflow-x:auto"><table class="tabla-partidas" id="tablaPartidas" hidden><thead><tr><th>Partida</th><th>Código</th><th>Estado</th><th>Alumnos</th><th>Creada</th></tr></thead><tbody></tbody></table></div>
+  </section>
+  <script is:inline src="/static/panel-docente.js?v=1"></script>
+</Pagina>

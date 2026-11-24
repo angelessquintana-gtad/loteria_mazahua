@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Maxa
+traduccion_espanol= Hasta luego

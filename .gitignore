@@ -1,0 +1,19 @@
+.env
+deploy/.env
+deploy/.cloud-secrets.json
+deploy/.cloud-secrets.json.tmp
+deploy/.env.cloud
+deploy/.cloud-uploaded.json
+.venv/
+__pycache__/
+*.pyc
+.playwright-mcp/
+uploads/
+deploy/backups/
+*.sqlite
+.jwt-secret
+frontend/node_modules/
+frontend/dist/
+frontend/.astro/
+.vscode/
+# Las imágenes y audios del catálogo (catalogo/) SÍ se suben: así el repositorio funciona completo.

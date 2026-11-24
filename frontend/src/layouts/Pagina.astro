@@ -1,0 +1,36 @@
+---
+interface Props { titulo: string; privada?: boolean }
+const { titulo, privada = false } = Astro.props;
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{titulo} · Lotería Mazahua</title>
+    <link rel="stylesheet" href="/static/partida.css?v=1" />
+    <link rel="stylesheet" href="/static/mazahua.css?v=12" />
+    <link rel="stylesheet" href="/static/cuentas-catalogo.css?v=2" />
+    <link rel="stylesheet" href="/static/extras.css?v=12" />
+    <link rel="stylesheet" href="/static/tema.css?v=4" />
+    <link rel="icon" type="image/png" href="/static/img/favicon.png" />
+    <meta name="theme-color" content="#74203d" />
+    {privada && <script is:inline src="/static/sesion-docente.js?v=4"></script>}
+    <script is:inline src="/static/navegacion.js?v=2" defer></script>
+    <script is:inline src="/static/ver-contrasena.js?v=1" defer></script>
+    <script is:inline src="/static/tema.js?v=4" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Ir al contenido</a>
+    <main>
+      <nav class="app-nav" aria-label="Navegación principal">
+        <a class="brand" href={privada ? "/panel" : "/"}><span>Lotería Mazahua<small>Palabras que nos conectan</small></span></a>
+        {privada
+          ? <div class="nav-catalogo"><a href="/docente">Partidas</a><a href="/editar">Tarjetas</a><a href="/vocabulario">Vocabulario</a></div>
+          : <div class="nav-catalogo"><a href="/vocabulario">Vocabulario</a><a href="/simulador">Simulador</a><a href="/videos">Videos</a><a href="/acceso" id="enlaceDocente">Docentes</a></div>}
+      </nav>
+      <div id="contenido"><slot /></div>
+      <footer class="page-footer">Mazahua / Español · Aprendemos en comunidad</footer>
+    </main>
+  </body>
+</html>

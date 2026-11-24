@@ -1,0 +1,27 @@
+---
+import Pagina from '../layouts/Pagina.astro';
+---
+<Pagina titulo="Mi cuenta" privada>
+  <header class="hero"><h1>Mi cuenta</h1><p id="resumenCuenta">Consulta y actualiza tus datos de docente.</p></header>
+  <div class="cuenta-grid">
+    <section class="panel" id="misDatos"><h2>Mis datos</h2>
+      <form id="perfilForm" novalidate>
+        <label for="perfilNombre">Nombre completo</label><input id="perfilNombre" autocomplete="name" maxlength="100" required />
+        <label for="perfilCorreo">Correo electrónico (con él inicias sesión)</label><input id="perfilCorreo" type="email" autocomplete="email" maxlength="254" required />
+        <label for="perfilPassword">Contraseña actual (para confirmar)</label><input id="perfilPassword" type="password" autocomplete="current-password" maxlength="128" required />
+        <button type="submit" id="perfilGuardar">Guardar mis datos</button>
+        <p id="mensajePerfil" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+    <section class="panel" id="cambiarPassword"><h2>Cambiar mi contraseña</h2>
+      <form id="passwordForm" novalidate>
+        <label for="actual">Contraseña actual</label><input id="actual" type="password" autocomplete="current-password" required maxlength="128" />
+        <label for="nueva">Nueva contraseña (mínimo 6 caracteres)</label><input id="nueva" type="password" autocomplete="new-password" required minlength="6" maxlength="128" />
+        <label for="repetida">Confirmar nueva contraseña</label><input id="repetida" type="password" autocomplete="new-password" required minlength="6" maxlength="128" />
+        <button type="submit" id="passwordGuardar">Cambiar contraseña</button>
+        <p id="mensajePassword" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </div>
+  <script is:inline src="/static/cuenta-docente.js?v=3"></script>
+</Pagina>

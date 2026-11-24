@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: loteria-mazahua
+    runtime: docker
+    plan: free
+    region: oregon
+    dockerfilePath: ./Dockerfile
+    dockerCommand: python deploy/iniciar_render.py
+    healthCheckPath: /api/ready
+    autoDeployTrigger: commit
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: SERIAL_ENABLED
+        value: "false"
+      # local: imágenes y audios del catálogo dentro del servidor (vienen en el repositorio).
+      # Para que los archivos que suban los docentes no se pierdan al reiniciar, usar «supabase»
+      # y agregar SUPABASE_URL, SUPABASE_SERVICE_KEY y SUPABASE_BUCKET (ver docs/NUBE_GRATUITA.md).
+      - key: STORAGE_BACKEND
+        value: local
+      - key: DB_SSL
+        value: "true"
+      - key: DB_POOL_SIZE
+        value: "2"
+      - key: DB_MAX_OVERFLOW
+        value: "1"
+      - key: DB_POOL_TIMEOUT
+        value: "60"
+      - key: ROOM_RETENTION_DAYS
+        value: "1"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false

@@ -1,0 +1,20 @@
+{
+  "url": "https://loteria-mazahua-escuela.onrender.com",
+  "fecha_utc": "2026-11-19T11:40:36.747216+00:00",
+  "alumnos": 25,
+  "etapa": "completada",
+  "ingresos_correctos": 25,
+  "ingreso_total_segundos": 3.369,
+  "ingreso_max_segundos": 3.341,
+  "iniciar_segundos": 0.387,
+  "websockets_conectados": 25,
+  "cartas_por_tablero": 16,
+  "conexion_y_tablero_max_segundos": 16.07,
+  "anunciar_segundos": 0.404,
+  "recepcion_anuncio_max_segundos": 0.682,
+  "alumnos_que_marcaron": 12,
+  "marcar_max_segundos": 1.309,
+  "marcas_concurrentes_mismo_alumno": true,
+  "base_datos_indices_bytes_durante_clase": 704512,
+  "ok": true
+}

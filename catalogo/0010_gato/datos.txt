@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Mixi
+traduccion_espanol= Gato

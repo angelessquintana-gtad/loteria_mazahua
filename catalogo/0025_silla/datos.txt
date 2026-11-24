@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Tjujnú
+traduccion_espanol= Silla

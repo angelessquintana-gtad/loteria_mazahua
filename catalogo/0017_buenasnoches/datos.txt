@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Tsökuaji
+traduccion_espanol= Buenas noches

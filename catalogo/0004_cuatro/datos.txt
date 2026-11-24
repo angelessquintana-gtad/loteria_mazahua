@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Nziyo
+traduccion_espanol= Cuatro

@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Kangua
+traduccion_espanol= Azul

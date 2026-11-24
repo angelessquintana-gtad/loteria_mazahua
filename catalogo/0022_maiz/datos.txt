@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Trjöö
+traduccion_espanol= Maíz

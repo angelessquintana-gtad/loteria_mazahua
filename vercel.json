@@ -1,0 +1,25 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "cd frontend && npm ci",
+  "buildCommand": "cd frontend && npm run build && cd .. && node deploy/preparar_vercel.mjs",
+  "outputDirectory": "frontend/dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/api/:ruta*", "destination": "https://loteria-mazahua-escuela.onrender.com/api/:ruta*" },
+    { "source": "/catalogo/:ruta*", "destination": "https://loteria-mazahua-escuela.onrender.com/catalogo/:ruta*" },
+    { "source": "/uploads/:ruta*", "destination": "https://loteria-mazahua-escuela.onrender.com/uploads/:ruta*" },
+    { "source": "/docs", "destination": "https://loteria-mazahua-escuela.onrender.com/docs" },
+    { "source": "/openapi.json", "destination": "https://loteria-mazahua-escuela.onrender.com/openapi.json" }
+  ],
+  "headers": [
+    { "source": "/(.*)", "headers": [
+      { "key": "X-Content-Type-Options", "value": "nosniff" },
+      { "key": "X-Frame-Options", "value": "DENY" },
+      { "key": "Referrer-Policy", "value": "same-origin" }
+    ] },
+    { "source": "/_astro/(.*)", "headers": [ { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" } ] },
+    { "source": "/static/(.*)", "headers": [ { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" } ] }
+  ]
+}

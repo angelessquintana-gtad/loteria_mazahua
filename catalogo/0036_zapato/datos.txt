@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Dyatzi
+traduccion_espanol= Zapato

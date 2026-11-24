@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Xiñe
+traduccion_espanol= Lavarse las manos

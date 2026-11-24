@@ -1,0 +1,2 @@
+﻿nombre_mazahua= In chuzgo
+traduccion_espanol= Me llamo

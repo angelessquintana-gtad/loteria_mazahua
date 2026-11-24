@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Sibi
+traduccion_espanol= Fuego/lumbre

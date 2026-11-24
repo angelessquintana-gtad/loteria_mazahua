@@ -1,0 +1,2 @@
+﻿nombre_mazahua= K’anga
+traduccion_espanol= Morado

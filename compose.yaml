@@ -1,0 +1,115 @@
+name: mazahua
+
+x-app: &app
+  build: .
+  image: mazahua-app:local
+  environment: &app-env
+    APP_ENV: production
+    AUTO_MIGRATE: "false"
+    SERIAL_ENABLED: "false"
+    DB_HOST: db
+    DB_PORT: "3306"
+    UPLOADS_DIR: /data/uploads
+    DB_NAME: ${DB_NAME:?Configura DB_NAME}
+    DB_USER: ${DB_USER:?Configura DB_USER}
+    DB_PASSWORD: ${DB_PASSWORD:?Configura DB_PASSWORD}
+    JWT_SECRET: ${JWT_SECRET:?Configura JWT_SECRET}
+    JWT_MINUTES: ${JWT_MINUTES:-120}
+    ALLOWED_HOSTS: ${ALLOWED_HOSTS:?Configura ALLOWED_HOSTS}
+    ROOM_IDLE_MINUTES: ${ROOM_IDLE_MINUTES:-60}
+    ROOM_MAX_HOURS: ${ROOM_MAX_HOURS:-8}
+    ROOM_RETENTION_DAYS: ${ROOM_RETENTION_DAYS:-7}
+    CLEANUP_INTERVAL_SECONDS: ${CLEANUP_INTERVAL_SECONDS:-60}
+    DB_POOL_SIZE: ${DB_POOL_SIZE:-5}
+    DB_MAX_OVERFLOW: ${DB_MAX_OVERFLOW:-5}
+    PUBLIC_URL: https://${DOMAIN:?Configura DOMAIN}
+    SMTP_HOST: ${SMTP_HOST:-}
+    SMTP_PORT: ${SMTP_PORT:-587}
+    SMTP_SECURITY: ${SMTP_SECURITY:-starttls}
+    SMTP_FROM: ${SMTP_FROM:-}
+    SMTP_USER: ${SMTP_USER:-}
+    SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+  volumes:
+    - uploads:/data/uploads
+  networks: [backend]
+  init: true
+  security_opt: ["no-new-privileges:true"]
+  cap_drop: [ALL]
+  logging:
+    driver: json-file
+    options: {max-size: "10m", max-file: "3"}
+
+services:
+  db:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:?Configura DB_NAME}
+      MYSQL_USER: ${DB_USER:?Configura DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD:?Configura DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Configura MYSQL_ROOT_PASSWORD}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci", "--max-connections=80", "--innodb-buffer-pool-size=256M"]
+    volumes: ["mysql:/var/lib/mysql"]
+    networks: [backend]
+    healthcheck:
+      test: ["CMD-SHELL", "MYSQL_PWD=\"$$MYSQL_PASSWORD\" mysql -h 127.0.0.1 -u\"$$MYSQL_USER\" \"$$MYSQL_DATABASE\" -Nse 'SELECT 1'"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+  migrate:
+    <<: *app
+    environment:
+      <<: *app-env
+      AUTO_MIGRATE: "true"
+    command: ["python", "-c", "import main; print('Esquema actualizado')"]
+    depends_on:
+      db: {condition: service_healthy}
+    restart: "no"
+  app:
+    <<: *app
+    # Salida a Internet para SMTP. MySQL permanece solo en backend interno.
+    networks: [backend, correo_salida]
+    restart: unless-stopped
+    read_only: true
+    tmpfs: ["/tmp:size=64m,mode=1777"]
+    depends_on:
+      migrate: {condition: service_completed_successfully}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/ready',timeout=4)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    environment:
+      DOMAIN: ${DOMAIN:?Configura DOMAIN}
+      ACME_EMAIL: ${ACME_EMAIL:?Configura ACME_EMAIL}
+    ports: ["80:80", "443:443", "443:443/udp"]
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [backend, public]
+    depends_on:
+      app: {condition: service_healthy}
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+networks:
+  backend:
+    internal: true
+  public:
+  correo_salida:
+
+volumes:
+  mysql:
+  uploads:
+  caddy_data:
+  caddy_config:

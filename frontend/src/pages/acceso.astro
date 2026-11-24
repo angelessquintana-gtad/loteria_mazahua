@@ -1,0 +1,49 @@
+---
+// Acceso de docentes: iniciar sesión (correo + contraseña), crear cuenta y recuperar contraseña.
+// Sin solicitudes, aprobaciones ni invitaciones.
+import Pagina from '../layouts/Pagina.astro';
+---
+<Pagina titulo="Acceso docente">
+  <header class="hero"><h1>Espacio docente</h1><p>Inicia sesión con tu correo o crea tu cuenta en un momento. Los alumnos no necesitan cuenta: entran con el código QR de la partida.</p></header>
+  <section class="panel auth-panel" aria-labelledby="accesoTitulo">
+    <div class="pestanas" role="tablist" aria-label="Opciones de acceso">
+      <button type="button" role="tab" id="tabLogin" aria-selected="true">Iniciar sesión</button>
+      <button type="button" role="tab" id="tabRegistro" aria-selected="false">Crear cuenta</button>
+    </div>
+    <h2 id="accesoTitulo">Iniciar sesión como docente</h2>
+    <p id="avisoOk" class="aviso-ok" role="status" aria-live="polite"></p>
+    <p id="avisoError" class="aviso-error" role="alert"></p>
+
+    <form id="loginForm" novalidate>
+      <label for="loginCorreo">Correo electrónico</label><input id="loginCorreo" type="email" autocomplete="email" maxlength="254" required placeholder="nombre@escuela.mx" />
+      <label for="loginPassword">Contraseña</label><input id="loginPassword" type="password" autocomplete="current-password" maxlength="128" required />
+      <button type="submit" id="loginEnviar">Iniciar sesión</button>
+      <button type="button" class="enlace-boton" id="olvide">¿Olvidaste tu contraseña?</button>
+    </form>
+
+    <form id="registroForm" novalidate hidden>
+      <label for="regNombre">Nombre completo</label><input id="regNombre" autocomplete="name" maxlength="100" required placeholder="Ej. Ana López García" />
+      <label for="regCorreo">Correo electrónico</label><input id="regCorreo" type="email" autocomplete="email" maxlength="254" required placeholder="nombre@escuela.mx" />
+      <label for="regPassword">Contraseña (mínimo 6 caracteres)</label><input id="regPassword" type="password" autocomplete="new-password" minlength="6" maxlength="128" required />
+      <label for="regConfirmacion">Confirmar contraseña</label><input id="regConfirmacion" type="password" autocomplete="new-password" minlength="6" maxlength="128" required />
+      <button type="submit" id="regEnviar">Crear mi cuenta</button>
+    </form>
+
+    <form id="recuperarForm" novalidate hidden>
+      <p class="note">Escribe el correo con el que te registraste. Te enviaremos un enlace para crear una contraseña nueva (válido por 30 minutos y de un solo uso).</p>
+      <label for="recCorreo">Correo electrónico</label><input id="recCorreo" type="email" autocomplete="email" maxlength="254" required />
+      <button type="submit" id="recEnviar">Enviar enlace de recuperación</button>
+      <p id="enlaceLocal" hidden></p>
+      <button type="button" class="enlace-boton" id="volverLogin1">← Volver a iniciar sesión</button>
+    </form>
+
+    <form id="restablecerForm" novalidate hidden>
+      <label for="nuevaPassword">Nueva contraseña (mínimo 6 caracteres)</label><input id="nuevaPassword" type="password" autocomplete="new-password" minlength="6" maxlength="128" required />
+      <label for="nuevaConfirmacion">Confirmar nueva contraseña</label><input id="nuevaConfirmacion" type="password" autocomplete="new-password" minlength="6" maxlength="128" required />
+      <button type="submit" id="resEnviar">Guardar nueva contraseña</button>
+      <button type="button" class="enlace-boton" id="volverLogin2">← Volver a iniciar sesión</button>
+    </form>
+    <p class="note">¿Eres alumno? Escanea el código QR de tu docente o <a href="/estudiante">escribe el código de la partida</a>.</p>
+  </section>
+  <script is:inline src="/static/acceso-docente.js?v=5"></script>
+</Pagina>

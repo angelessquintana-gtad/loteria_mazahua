@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Ba’ni
+traduccion_espanol= Casa

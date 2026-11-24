@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Tsjúú
+traduccion_espanol= Frijol

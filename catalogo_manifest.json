@@ -1,0 +1,542 @@
+[
+  {
+    "carpeta": "0001_uno",
+    "numero": 1,
+    "palabra_mazahua": "Naja",
+    "traduccion_espanol": "Uno",
+    "imagen_url": "/catalogo/0001_uno/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0001_uno/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0001_uno/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0002_dos",
+    "numero": 2,
+    "palabra_mazahua": "Yeje",
+    "traduccion_espanol": "Dos",
+    "imagen_url": "/catalogo/0002_dos/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0002_dos/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0002_dos/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0003_tres",
+    "numero": 3,
+    "palabra_mazahua": "Jñi",
+    "traduccion_espanol": "Tres",
+    "imagen_url": "/catalogo/0003_tres/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0003_tres/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0003_tres/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0004_cuatro",
+    "numero": 4,
+    "palabra_mazahua": "Nziyo",
+    "traduccion_espanol": "Cuatro",
+    "imagen_url": "/catalogo/0004_cuatro/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0004_cuatro/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0004_cuatro/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0005_cinco",
+    "numero": 5,
+    "palabra_mazahua": "Tsicha",
+    "traduccion_espanol": "Cinco",
+    "imagen_url": "/catalogo/0005_cinco/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0005_cinco/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0005_cinco/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0006_tortilla",
+    "numero": 6,
+    "palabra_mazahua": "T'zeyi",
+    "traduccion_espanol": "Tortilla",
+    "imagen_url": "/catalogo/0006_tortilla/imagen.png",
+    "audio_mazahua_url": "/catalogo/0006_tortilla/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0006_tortilla/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0007_burro",
+    "numero": 7,
+    "palabra_mazahua": "Recua",
+    "traduccion_espanol": "Burro",
+    "imagen_url": "/catalogo/0007_burro/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0007_burro/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0007_burro/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0008_diez",
+    "numero": 8,
+    "palabra_mazahua": "Dyecha",
+    "traduccion_espanol": "Diez",
+    "imagen_url": "/catalogo/0008_diez/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0008_diez/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0008_diez/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0009_pollo",
+    "numero": 9,
+    "palabra_mazahua": "Ñgani",
+    "traduccion_espanol": "Pollo",
+    "imagen_url": "/catalogo/0009_pollo/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0009_pollo/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0009_pollo/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0010_gato",
+    "numero": 10,
+    "palabra_mazahua": "Mixi",
+    "traduccion_espanol": "Gato",
+    "imagen_url": "/catalogo/0010_gato/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0010_gato/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0010_gato/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0011_perro",
+    "numero": 11,
+    "palabra_mazahua": "Dyoo",
+    "traduccion_espanol": "Perro",
+    "imagen_url": "/catalogo/0011_perro/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0011_perro/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0011_perro/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0012_mesa",
+    "numero": 12,
+    "palabra_mazahua": "Mexa",
+    "traduccion_espanol": "Mesa",
+    "imagen_url": "/catalogo/0012_mesa/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0012_mesa/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0012_mesa/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0013_mellamo",
+    "numero": 13,
+    "palabra_mazahua": "In chuzgo",
+    "traduccion_espanol": "Me llamo",
+    "imagen_url": "/catalogo/0013_mellamo/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0013_mellamo/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0013_mellamo/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0014_hola",
+    "numero": 14,
+    "palabra_mazahua": "Kjimi",
+    "traduccion_espanol": "Hola",
+    "imagen_url": "/catalogo/0014_hola/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0014_hola/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0014_hola/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0015_buenosdias",
+    "numero": 15,
+    "palabra_mazahua": "Jiasmaji",
+    "traduccion_espanol": "Buenos días",
+    "imagen_url": "/catalogo/0015_buenosdias/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0015_buenosdias/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0015_buenosdias/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0016_buenastardes",
+    "numero": 16,
+    "palabra_mazahua": "Ja bi chjenzha",
+    "traduccion_espanol": "Buenas tardes",
+    "imagen_url": "/catalogo/0016_buenastardes/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0016_buenastardes/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0016_buenastardes/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0017_buenasnoches",
+    "numero": 17,
+    "palabra_mazahua": "Tsökuaji",
+    "traduccion_espanol": "Buenas noches",
+    "imagen_url": "/catalogo/0017_buenasnoches/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0017_buenasnoches/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0017_buenasnoches/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0018_hastaluego",
+    "numero": 18,
+    "palabra_mazahua": "Maxa",
+    "traduccion_espanol": "Hasta luego",
+    "imagen_url": "/catalogo/0018_hastaluego/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0018_hastaluego/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0018_hastaluego/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0019_comoestas",
+    "numero": 19,
+    "palabra_mazahua": "Jango jyasï",
+    "traduccion_espanol": "¿Cómo estás?",
+    "imagen_url": "/catalogo/0019_comoestas/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0019_comoestas/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0019_comoestas/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0020_vaca",
+    "numero": 20,
+    "palabra_mazahua": "B’aga",
+    "traduccion_espanol": "Vaca",
+    "imagen_url": "/catalogo/0020_vaca/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0020_vaca/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0020_vaca/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0021_frijol",
+    "numero": 21,
+    "palabra_mazahua": "Tsjúú",
+    "traduccion_espanol": "Frijol",
+    "imagen_url": "/catalogo/0021_frijol/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0021_frijol/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0021_frijol/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0022_maiz",
+    "numero": 22,
+    "palabra_mazahua": "Trjöö",
+    "traduccion_espanol": "Maíz",
+    "imagen_url": "/catalogo/0022_maiz/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0022_maiz/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0022_maiz/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0023_fuego",
+    "numero": 23,
+    "palabra_mazahua": "Sibi",
+    "traduccion_espanol": "Fuego/lumbre",
+    "imagen_url": "/catalogo/0023_fuego/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0023_fuego/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0023_fuego/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0024_cuaderno",
+    "numero": 24,
+    "palabra_mazahua": "Skuama",
+    "traduccion_espanol": "Cuaderno",
+    "imagen_url": "/catalogo/0024_cuaderno/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0024_cuaderno/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0024_cuaderno/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0025_silla",
+    "numero": 25,
+    "palabra_mazahua": "Tjujnú",
+    "traduccion_espanol": "Silla",
+    "imagen_url": "/catalogo/0025_silla/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0025_silla/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0025_silla/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0026_casa",
+    "numero": 26,
+    "palabra_mazahua": "Ba’ni",
+    "traduccion_espanol": "Casa",
+    "imagen_url": "/catalogo/0026_casa/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0026_casa/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0026_casa/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0027_hombre",
+    "numero": 27,
+    "palabra_mazahua": "B’ezo",
+    "traduccion_espanol": "Hombre",
+    "imagen_url": "/catalogo/0027_hombre/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0027_hombre/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0027_hombre/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0028_mujer",
+    "numero": 28,
+    "palabra_mazahua": "Ndixu",
+    "traduccion_espanol": "Mujer",
+    "imagen_url": "/catalogo/0028_mujer/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0028_mujer/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0028_mujer/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0029_nino",
+    "numero": 29,
+    "palabra_mazahua": "Tr’ii",
+    "traduccion_espanol": "Niño",
+    "imagen_url": "/catalogo/0029_nino/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0029_nino/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0029_nino/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0030_nina",
+    "numero": 30,
+    "palabra_mazahua": "Xitr’i",
+    "traduccion_espanol": "Niña",
+    "imagen_url": "/catalogo/0030_nina/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0030_nina/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0030_nina/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0031_cielo",
+    "numero": 31,
+    "palabra_mazahua": "Ajense",
+    "traduccion_espanol": "Cielo",
+    "imagen_url": "/catalogo/0031_cielo/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0031_cielo/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0031_cielo/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0032_coyote",
+    "numero": 32,
+    "palabra_mazahua": "Miño",
+    "traduccion_espanol": "Coyote",
+    "imagen_url": "/catalogo/0032_coyote/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0032_coyote/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0032_coyote/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0033_hierba",
+    "numero": 33,
+    "palabra_mazahua": "Pjiño",
+    "traduccion_espanol": "Hierba",
+    "imagen_url": "/catalogo/0033_hierba/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0033_hierba/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0033_hierba/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0034_pan",
+    "numero": 34,
+    "palabra_mazahua": "Trjomechi",
+    "traduccion_espanol": "Pan",
+    "imagen_url": "/catalogo/0034_pan/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0034_pan/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0034_pan/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0035_chile",
+    "numero": 35,
+    "palabra_mazahua": "Ii",
+    "traduccion_espanol": "Chile",
+    "imagen_url": "/catalogo/0035_chile/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0035_chile/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0035_chile/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0036_zapato",
+    "numero": 36,
+    "palabra_mazahua": "Dyatzi",
+    "traduccion_espanol": "Zapato",
+    "imagen_url": "/catalogo/0036_zapato/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0036_zapato/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0036_zapato/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0037_maestro",
+    "numero": 37,
+    "palabra_mazahua": "Xopute",
+    "traduccion_espanol": "Maestro",
+    "imagen_url": "/catalogo/0037_maestro/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0037_maestro/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0037_maestro/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0038_escuela",
+    "numero": 38,
+    "palabra_mazahua": "Ngunxorú",
+    "traduccion_espanol": "Escuela",
+    "imagen_url": "/catalogo/0038_escuela/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0038_escuela/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0038_escuela/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0039_huevo",
+    "numero": 39,
+    "palabra_mazahua": "Muru",
+    "traduccion_espanol": "Huevo",
+    "imagen_url": "/catalogo/0039_huevo/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0039_huevo/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0039_huevo/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0040_carne",
+    "numero": 40,
+    "palabra_mazahua": "Nzee",
+    "traduccion_espanol": "Carne",
+    "imagen_url": "/catalogo/0040_carne/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0040_carne/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0040_carne/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0041_amigo",
+    "numero": 41,
+    "palabra_mazahua": "Inyo",
+    "traduccion_espanol": "Amigo",
+    "imagen_url": "/catalogo/0041_amigo/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0041_amigo/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0041_amigo/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0042_hijo",
+    "numero": 42,
+    "palabra_mazahua": "Ch’ii",
+    "traduccion_espanol": "Hijo",
+    "imagen_url": "/catalogo/0042_hijo/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0042_hijo/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0042_hijo/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0043_hija",
+    "numero": 43,
+    "palabra_mazahua": "Chijue",
+    "traduccion_espanol": "Hija",
+    "imagen_url": "/catalogo/0043_hija/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0043_hija/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0043_hija/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0044_banarse",
+    "numero": 44,
+    "palabra_mazahua": "Jii",
+    "traduccion_espanol": "Bañarse",
+    "imagen_url": "/catalogo/0044_banarse/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0044_banarse/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0044_banarse/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0045_lavarselasmanos",
+    "numero": 45,
+    "palabra_mazahua": "Xiñe",
+    "traduccion_espanol": "Lavarse las manos",
+    "imagen_url": "/catalogo/0045_lavarselasmanos/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0045_lavarselasmanos/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0045_lavarselasmanos/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0046_hongos",
+    "numero": 46,
+    "palabra_mazahua": "Kjojo",
+    "traduccion_espanol": "Hongos",
+    "imagen_url": "/catalogo/0046_hongos/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0046_hongos/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0046_hongos/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0047_lena",
+    "numero": 47,
+    "palabra_mazahua": "Zaa",
+    "traduccion_espanol": "Leña",
+    "imagen_url": "/catalogo/0047_lena/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0047_lena/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0047_lena/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0048_azul",
+    "numero": 48,
+    "palabra_mazahua": "Kangua",
+    "traduccion_espanol": "Azul",
+    "imagen_url": "/catalogo/0048_azul/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0048_azul/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0048_azul/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0049_verde",
+    "numero": 49,
+    "palabra_mazahua": "Mbezhe",
+    "traduccion_espanol": "Verde",
+    "imagen_url": "/catalogo/0049_verde/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0049_verde/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0049_verde/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0050_amarillo",
+    "numero": 50,
+    "palabra_mazahua": "K’axt’u",
+    "traduccion_espanol": "Amarillo",
+    "imagen_url": "/catalogo/0050_amarillo/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0050_amarillo/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0050_amarillo/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0051_rojo",
+    "numero": 51,
+    "palabra_mazahua": "Mbaja",
+    "traduccion_espanol": "Rojo",
+    "imagen_url": "/catalogo/0051_rojo/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0051_rojo/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0051_rojo/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0052_naranja",
+    "numero": 52,
+    "palabra_mazahua": "Naraxa",
+    "traduccion_espanol": "Naranja",
+    "imagen_url": "/catalogo/0052_naranja/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0052_naranja/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0052_naranja/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0053_morado",
+    "numero": 53,
+    "palabra_mazahua": "K’anga",
+    "traduccion_espanol": "Morado",
+    "imagen_url": "/catalogo/0053_morado/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0053_morado/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0053_morado/audio_espanol.m4a",
+    "miniatura": true
+  },
+  {
+    "carpeta": "0054_rosa",
+    "numero": 54,
+    "palabra_mazahua": "Ixki",
+    "traduccion_espanol": "Rosa",
+    "imagen_url": "/catalogo/0054_rosa/imagen.jpg",
+    "audio_mazahua_url": "/catalogo/0054_rosa/audio_mazahua.m4a",
+    "audio_espanol_url": "/catalogo/0054_rosa/audio_espanol.m4a",
+    "miniatura": true
+  }
+]

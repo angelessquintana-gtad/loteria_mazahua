@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Dyoo
+traduccion_espanol= Perro

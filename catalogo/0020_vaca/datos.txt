@@ -1,0 +1,2 @@
+﻿nombre_mazahua= B’aga
+traduccion_espanol= Vaca

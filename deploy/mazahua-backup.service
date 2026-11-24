@@ -1,0 +1,10 @@
+[Unit]
+Description=Copia de seguridad de Loteria Mazahua
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/mazahua
+ExecStart=/bin/bash /opt/mazahua/deploy/backup.sh
+UMask=0077

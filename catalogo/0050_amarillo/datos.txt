@@ -1,0 +1,2 @@
+﻿nombre_mazahua= K’axt’u
+traduccion_espanol= Amarillo

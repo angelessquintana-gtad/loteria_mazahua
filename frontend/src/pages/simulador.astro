@@ -1,0 +1,36 @@
+---
+// Simulación de la dinámica de la lotería en el navegador, sin cuenta ni lector RFID.
+// Las cartas se obtienen de FastAPI mediante GET /api/vocabulario.
+import Pagina from '../layouts/Pagina.astro';
+---
+<Pagina titulo="Simulador de lotería">
+  <header class="hero hero-compacta"><h1>Simulador de lotería.</h1><p>Practica sin cuenta ni lector: el sistema canta una carta, escuchas su pronunciación en mazahua y en español, y marcas tu tablero. Gana quien llene las 16 casillas.</p></header>
+  <div class="sim-layout">
+    <section class="sim-panel" aria-labelledby="tituloCantor">
+      <h2 id="tituloCantor">Carta cantada</h2>
+      <p id="contadorCartas">Cargando cartas…</p>
+      <div class="sim-carta" id="cartaActual" aria-live="polite"><p class="sim-vacia">Pulsa “Sacar carta” para comenzar.</p></div>
+      <div class="sim-botones">
+        <button type="button" id="btnSacar" disabled>Sacar carta</button>
+        <button type="button" id="btnRepetir" class="secundario" disabled>Repetir audio</button>
+        <button type="button" id="btnNueva" class="secundario" disabled>Nueva partida</button>
+      </div>
+      <div class="sim-opciones">
+        <label><input type="checkbox" id="optAudio" checked /> Reproducir audios al sacar carta</label>
+        <label><input type="checkbox" id="optAuto" /> Cantar cartas automáticamente cada 8 segundos</label>
+      </div>
+      <p class="sim-mensaje" id="mensajeSim" role="status" aria-live="polite"></p>
+      <h3 style="margin:18px 0 0;font-size:16px">Cartas que ya salieron</h3>
+      <div class="sim-historial" id="historial"></div>
+      <audio id="audioMazahua" preload="none"></audio><audio id="audioEspanol" preload="none"></audio>
+    </section>
+    <section aria-labelledby="tituloTablero">
+      <h2 id="tituloTablero" style="margin-top:0;color:#74203d">Tu tablero</h2>
+      <div id="avisoGanaste" class="sim-ganaste" hidden>¡Lotería! Llenaste tu tablero 🎉</div>
+      <div id="tablero" class="sim-tablero" aria-busy="true"></div>
+      <p style="color:#69505a;margin-top:14px">Las cartas de tu tablero que ya salieron se pintan de <strong style="color:#12643a">verde</strong>: tócalas para poner tu frijol.</p>
+    </section>
+  </div>
+  <script is:inline src="/static/voz-espanol.js?v=1"></script>
+  <script is:inline src="/static/simulador.js?v=7"></script>
+</Pagina>

@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Naja
+traduccion_espanol= Uno

@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Jiasmaji
+traduccion_espanol= Buenos días

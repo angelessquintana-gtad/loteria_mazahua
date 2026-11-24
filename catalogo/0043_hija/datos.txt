@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Chijue
+traduccion_espanol= Hija

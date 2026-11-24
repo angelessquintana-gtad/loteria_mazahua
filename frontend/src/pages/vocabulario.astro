@@ -1,0 +1,13 @@
+---
+import Pagina from '../layouts/Pagina.astro';
+---
+<Pagina titulo="Nuestro vocabulario">
+  <header class="hero"><h1>Una palabra, dos lenguas.</h1><p>Explora las cartas y escucha su pronunciación. Cada palabra es una forma de acercarnos.</p></header>
+  <section aria-label="Catálogo de vocabulario">
+    <div class="catalogo-tools"><div><label for="buscarPalabra">Buscar en español o mazahua</label><input id="buscarPalabra" type="search" placeholder="Escribe una palabra…" autocomplete="off" /></div><p id="totalPalabras" role="status" aria-live="polite">Cargando palabras…</p></div>
+    <p id="mensajeCatalogo" role="status" aria-live="polite"></p><button id="reintentarCatalogo" type="button" hidden>Volver a cargar</button>
+    <div id="galeriaVocabulario" class="vocabulario-grid" aria-busy="true"></div>
+  </section>
+  <script is:inline src="/static/voz-espanol.js?v=1"></script>
+  <script is:inline src="/static/vocabulario.js?v=7"></script>
+</Pagina>

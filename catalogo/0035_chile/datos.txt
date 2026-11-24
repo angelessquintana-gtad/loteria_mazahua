@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Ii
+traduccion_espanol= Chile

@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Inyo
+traduccion_espanol= Amigo

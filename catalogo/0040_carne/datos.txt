@@ -1,0 +1,2 @@
+﻿nombre_mazahua= Nzee
+traduccion_espanol= Carne

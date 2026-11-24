@@ -1,0 +1,33 @@
+---
+// Editor sencillo del vocabulario (solo administrador). Muestra las cartas como fichas;
+// cada una se edita en una ventana con los datos que pide el proyecto:
+// nombre en mazahua, nombre en español, descripción, imagen y audios.
+import Pagina from '../layouts/Pagina.astro';
+---
+<Pagina titulo="Editar vocabulario" privada>
+  <header class="hero"><h1>Administrar tarjetas.</h1><p>Agrega tarjetas nuevas o pulsa <strong>Editar</strong> para cambiar el nombre en español y en mazahua, la descripción, la imagen o los audios (reproducir, reemplazar o eliminar). Todo se guarda en la base de datos al momento.</p></header>
+  <div class="ed-barra">
+    <input id="edBuscar" type="search" placeholder="Buscar por palabra, número o UID…" aria-label="Buscar tarjeta" />
+    <button type="button" id="edAgregar">＋ Agregar tarjeta</button>
+  </div>
+  <p id="edMensaje" class="ed-mensaje" role="status" aria-live="polite">Cargando…</p>
+  <div id="edLista" class="ed-grid"></div>
+
+  <dialog id="edDialogo" class="ed-dialogo" aria-labelledby="edTitulo">
+    <form id="edForm" method="dialog">
+      <h2 id="edTitulo">Editar palabra</h2>
+      <div class="grid-2"><div><label for="fEspanol">Nombre en español *</label><input id="fEspanol" name="traduccion_espanol" required maxlength="150" /></div><div><label for="fMazahua">Nombre en mazahua *</label><input id="fMazahua" name="palabra_mazahua" required maxlength="150" /></div></div>
+      <label for="fNumero">Número de tarjeta (opcional)</label><input id="fNumero" name="numero" inputmode="numeric" pattern="[0-9]*" maxlength="4" placeholder="Ej. 10" />
+      <label for="fDescripcion">Descripción o información adicional</label><textarea id="fDescripcion" name="descripcion" rows="3" maxlength="4000" placeholder="Si la dejas vacía se escribe una descripción por defecto."></textarea>
+      <div class="ed-archivos">
+        <div><label for="fImagen">Imagen <span id="reqImagen"></span></label><img id="vImagen" alt="" hidden /><input id="fImagen" name="imagen" type="file" accept=".jpg,.jpeg,.png,.webp,image/*" /><small>JPG, PNG o WEBP · máx. 5 MB</small></div>
+        <div><label for="fAudioMazahua">Audio en mazahua <span id="reqAudioM"></span></label><audio id="vAudioMazahua" controls preload="none" hidden></audio><input id="fAudioMazahua" name="audio_mazahua" type="file" accept=".mp3,.wav,.ogg,.m4a,.webm,audio/*" /><small>MP3, WAV, OGG o M4A · máx. 12 MB</small><button type="button" class="secondary ed-grabar" id="edGrabarMazahua">🎙 Grabar en mazahua con el micrófono</button><small id="edGrabarMazahuaEstado"></small><label class="ed-quitar" id="quitarMazahuaCaja" hidden><input type="checkbox" id="fQuitarMazahua" name="eliminar_audio_mazahua" value="true" /> Eliminar este audio</label></div>
+        <div><label for="fAudioEspanol">Audio en español <span id="reqAudioE"></span></label><audio id="vAudioEspanol" controls preload="none" hidden></audio><input id="fAudioEspanol" name="audio_espanol" type="file" accept=".mp3,.wav,.ogg,.m4a,.webm,audio/*" /><small>MP3, WAV, OGG o M4A · máx. 12 MB</small><button type="button" class="secondary ed-grabar" id="edGrabarEspanol">🎙 Grabar en español con el micrófono</button><small id="edGrabarEspanolEstado"></small><label class="ed-quitar" id="quitarEspanolCaja" hidden><input type="checkbox" id="fQuitarEspanol" name="eliminar_audio_espanol" value="true" /> Eliminar este audio</label></div>
+      </div>
+      <details class="ed-avanzado"><summary>Tarjeta RFID (opcional)</summary><label for="fUid">UID de la tarjeta física</label><input id="fUid" name="uid" maxlength="40" placeholder="Se genera solo si lo dejas vacío" /></details>
+      <p id="edError" class="ed-error" role="alert"></p>
+      <div class="ed-botones"><button type="submit" id="edGuardar">Guardar cambios</button><button type="button" class="secondary" id="edCancelar">Cancelar</button></div>
+    </form>
+  </dialog>
+  <script is:inline src="/static/editar-vocabulario.js?v=5"></script>
+</Pagina>

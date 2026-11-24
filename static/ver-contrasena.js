@@ -1,0 +1,27 @@
+/* Agrega el botón del "ojito" a todos los campos de contraseña para mostrarla u ocultarla. */
+(() => {
+  const OJO = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+  const OJO_TACHADO = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 19c-7 0-11-7-11-7a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 7 11 7a18.5 18.5 0 0 1-2.16 3.19"/><path d="M14.12 14.12a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+  function agregar(campo) {
+    if (campo.dataset.ojito) return;
+    campo.dataset.ojito = '1';
+    const caja = document.createElement('div'); caja.className = 'campo-contrasena';
+    campo.parentNode.insertBefore(caja, campo); caja.append(campo);
+    const boton = document.createElement('button');
+    boton.type = 'button'; boton.className = 'ver-contrasena'; boton.innerHTML = OJO;
+    boton.setAttribute('aria-label', 'Mostrar contraseña'); boton.setAttribute('aria-pressed', 'false'); boton.title = 'Mostrar contraseña';
+    boton.onclick = () => {
+      const visible = campo.type === 'password';
+      campo.type = visible ? 'text' : 'password';
+      boton.innerHTML = visible ? OJO_TACHADO : OJO;
+      const texto = visible ? 'Ocultar contraseña' : 'Mostrar contraseña';
+      boton.setAttribute('aria-label', texto); boton.title = texto; boton.setAttribute('aria-pressed', String(visible));
+      campo.focus({preventScroll: true});
+    };
+    caja.append(boton);
+    // Al enviar o limpiar el formulario, la contraseña vuelve a ocultarse.
+    campo.form?.addEventListener('reset', () => { if (campo.type === 'text') boton.click(); });
+    campo.form?.addEventListener('submit', () => { if (campo.type === 'text') { campo.type = 'password'; boton.innerHTML = OJO; boton.setAttribute('aria-pressed', 'false'); boton.setAttribute('aria-label', 'Mostrar contraseña'); } }, true);
+  }
+  document.querySelectorAll('input[type="password"]').forEach(agregar);
+})();
