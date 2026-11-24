@@ -242,6 +242,18 @@ def invitacion(codigo: str, request: Request):
     return {'url': url, 'red_local': local, 'disponible': disponible}
 
 
+@app.get('/api/amigos/{codigo}/enlace')
+def amigos_enlace(codigo: str, request: Request):
+    url, local, disponible = url_invitacion(codigo, request)
+    return {'url': url, 'red_local': local, 'disponible': disponible}
+
+
+@app.get('/api/amigos/{codigo}/qr')
+def amigos_qr(codigo: str, request: Request):
+    """QR público de una partida entre amigos (solo contiene el enlace para unirse)."""
+    return invitacion_qr(codigo, request)
+
+
 @app.get('/api/invitacion/{codigo}/qr')
 def invitacion_qr(codigo: str, request: Request):
     url, _, _ = url_invitacion(codigo, request)

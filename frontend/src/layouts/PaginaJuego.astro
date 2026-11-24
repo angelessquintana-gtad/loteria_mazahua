@@ -13,7 +13,7 @@ const cuerpo = documento.match(/<body[^>]*>([\s\S]*?)<\/body>/i)?.[1] ?? '';
     {privada && <script is:inline src="/static/sesion-docente.js?v=4"></script>}
     {rol !== 'estudiante' && <link rel="stylesheet" href="/static/extras.css?v=12" />}
     {rol !== 'estudiante' && !documento.includes('navegacion.js') && <script is:inline src="/static/navegacion.js?v=2" defer></script>}
-    <link rel="stylesheet" href="/static/tema.css?v=4" />
+    <link rel="stylesheet" href="/static/tema.css?v=7" />
     <link rel="icon" type="image/png" href="/static/img/favicon.png" />
     <meta name="theme-color" content="#74203d" />
     <script is:inline src="/static/tema.js?v=4"></script>

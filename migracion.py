@@ -276,3 +276,8 @@ def asegurar_columnas(engine):
             with engine.begin() as conexion:
                 conexion.execute(text('ALTER TABLE participantes ADD COLUMN avatar VARCHAR(60) NULL'))
             print('Listo: se agregó la columna avatar a participantes.')
+    if 'partidas' in insp.get_table_names():
+        if 'anfitrion' not in {c['name'] for c in insp.get_columns('partidas')}:
+            with engine.begin() as conexion:
+                conexion.execute(text('ALTER TABLE partidas ADD COLUMN anfitrion VARCHAR(64) NULL'))
+            print('Listo: se agregó la columna anfitrion a partidas (partidas entre amigos).')

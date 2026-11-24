@@ -47,7 +47,7 @@ class ProteccionHTTP(BaseHTTPMiddleware):
         if PRODUCCION:
             if path.startswith('/api/') and request.method not in {'GET', 'HEAD', 'OPTIONS'} and self.excedido(ip, 'escrituras', 2400):
                 return JSONResponse({'detail': 'Demasiadas operaciones. Espera un minuto.'}, status_code=429, headers={'Retry-After': '60'})
-            limite = 240 if path == '/api/partidas/unirse' else 30 if path == '/api/partidas' else None
+            limite = 240 if path == '/api/partidas/unirse' else 30 if path == '/api/partidas' else 10 if path == '/api/amigos' else None
             if limite and self.excedido(ip, path, limite):
                 return JSONResponse({'detail': 'Demasiadas solicitudes. Espera un minuto.'}, status_code=429, headers={'Retry-After': '60'})
         normal = ruta_normalizada(path)

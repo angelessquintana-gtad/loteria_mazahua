@@ -5,6 +5,7 @@ import Pagina from '../layouts/Pagina.astro';
 ---
 <Pagina titulo="Simulador de lotería">
   <header class="hero hero-compacta"><h1>Simulador de lotería.</h1><p>Practica sin cuenta ni lector: el sistema canta una carta, escuchas su pronunciación en mazahua y en español, y marcas tu tablero. Gana quien llene las 16 casillas.</p></header>
+  <div class="invitacion-amigos"><p>👫 ¿Quieres jugar con tus amigos? Tú sacas las cartas y ellos juegan desde su celular, sin cartas físicas.</p><a href="/estudiante?amigos=1">Jugar con amigos</a></div>
   <div class="sim-layout">
     <section class="sim-panel" aria-labelledby="tituloCantor">
       <h2 id="tituloCantor">Carta cantada</h2>
@@ -32,5 +33,5 @@ import Pagina from '../layouts/Pagina.astro';
     </section>
   </div>
   <script is:inline src="/static/voz-espanol.js?v=1"></script>
-  <script is:inline src="/static/simulador.js?v=7"></script>
+  <script is:inline src="/static/simulador.js?v=8"></script>
 </Pagina>

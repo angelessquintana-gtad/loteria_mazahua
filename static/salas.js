@@ -54,6 +54,65 @@ function proyectar(activar) {
 }
 document.addEventListener?.('fullscreenchange', () => { if (!document.fullscreenElement) document.body.classList.remove('proyector'); });
 document.addEventListener?.('keydown', e => { if (e.key === 'Escape') document.body.classList.remove('proyector'); });
+// ---------- Partida con amigos: el anfitrión juega y además saca las cartas ----------
+let autoCantar = null, ultimoSonido = null;
+async function accionAnfitrion(accion) {
+  const r = await fetch(`/api/amigos/${encodeURIComponent(session.codigo)}/${accion}`, {method: 'POST', headers: {'X-Anfitrion': session.anfitrion}});
+  const datos = await r.json().catch(() => ({}));
+  if (!r.ok) throw Error(typeof datos.detail === 'string' ? datos.detail : 'No se pudo completar la acción.');
+  return datos;
+}
+function detenerAuto() { clearInterval(autoCantar); autoCantar = null; const c = document.getElementById('autoAnfitrion'); if (c) c.checked = false; }
+async function sacarCarta(boton) {
+  try { boton && (boton.disabled = true); render(await accionAnfitrion('sacar')); }
+  catch (e) { message(e.message); if (/todas las cartas/i.test(e.message)) detenerAuto(); }
+  finally { if (boton) setTimeout(() => { boton.disabled = false; }, 1200); }
+}
+function panelAnfitrion(room) {
+  let panel = document.getElementById('panelAnfitrion');
+  if (!session?.anfitrion || !room.amigos) { if (panel?.id === 'panelAnfitrion') panel.remove(); return; }
+  if (!panel) { panel = node('section', null, 'panel panel-anfitrion'); panel.id = 'panelAnfitrion'; $('room').after(panel); }
+  if (panel.dataset.estado === room.estado && room.estado !== 'en_curso') { const n = panel.querySelector('.cuantos'); if (n) n.textContent = `${room.participantes.length} ${room.participantes.length === 1 ? 'jugador' : 'jugadores'}`; return; }
+  if (panel.dataset.estado === 'en_curso' && room.estado === 'en_curso') {
+    const c = panel.querySelector('.cartas-salidas'); if (c) c.textContent = `${room.anunciadas.length} cartas cantadas`; return;
+  }
+  panel.dataset.estado = room.estado;
+  let enlace = `${location.origin}/estudiante?codigo=${room.codigo}`;
+  if (room.estado === 'esperando') {
+    const titulo = node('h2', '👫 Invita a tus amigos');
+    const texto = node('p', 'Compárteles el enlace o que escaneen el código QR. Cuando estén todos, empieza la partida: tú sacas las cartas y también juegas.', 'note');
+    const qr = node('img', null, 'qr-amigos'); qr.src = `/api/amigos/${room.codigo}/qr`; qr.alt = 'Código QR para unirse a la partida'; qr.width = 180; qr.height = 180;
+    const campo = node('input', null, 'enlace-amigos'); campo.value = enlace; campo.readOnly = true; campo.setAttribute('aria-label', 'Enlace de la partida');
+    const copiar = node('button', '📋 Copiar enlace', 'secondary'); copiar.type = 'button';
+    copiar.onclick = async () => { try { await navigator.clipboard.writeText(enlace); message('Enlace copiado.', true); } catch { campo.select(); message('Selecciona el enlace y cópialo.'); } };
+    const botones = node('div', null, 'acciones-anfitrion'); botones.append(copiar);
+    if (navigator.share) { const compartir = node('button', '📤 Compartir', 'secondary'); compartir.type = 'button'; compartir.onclick = () => navigator.share({title: 'Lotería Mazahua', text: `¡Juega lotería mazahua conmigo! Código ${room.codigo}`, url: enlace}).catch(() => {}); botones.append(compartir); }
+    const codigo = node('p', null, 'codigo-amigos'); codigo.append('Código: ', node('strong', room.codigo));
+    // En la computadora, el servidor da la dirección de la red Wi-Fi (la que sirve en los celulares).
+    fetch(`/api/amigos/${room.codigo}/enlace`, {cache: 'no-store'}).then(r => r.ok ? r.json() : null).then(d => { if (d?.url) { enlace = d.url; campo.value = d.url; } }).catch(() => {});
+    const cuantos = node('p', `${room.participantes.length} ${room.participantes.length === 1 ? 'jugador' : 'jugadores'}`, 'cuantos');
+    const empezar = node('button', '▶ Empezar partida', 'empezar-amigos'); empezar.type = 'button';
+    empezar.onclick = () => busy(empezar, async () => { render(await accionAnfitrion('iniciar')); message('¡Comienza el juego! Saca la primera carta.', true); });
+    const izq = node('div', null, 'anfitrion-qr'); izq.append(qr);
+    const der = node('div', null, 'anfitrion-info'); der.append(titulo, texto, codigo, campo, botones, cuantos, empezar);
+    panel.replaceChildren(izq, der);
+  } else if (room.estado === 'en_curso') {
+    const sacar = node('button', '🎴 Sacar carta', 'sacar-amigos'); sacar.type = 'button'; sacar.onclick = () => { window.sonidoClic?.(); void sacarCarta(sacar); };
+    const auto = node('label', null, 'auto-amigos'); const caja = node('input'); caja.type = 'checkbox'; caja.id = 'autoAnfitrion';
+    caja.onchange = () => { if (caja.checked) { void sacarCarta(sacar); autoCantar = setInterval(() => sacarCarta(sacar), 9000); } else detenerAuto(); };
+    auto.append(caja, ' Cantar solas cada 9 segundos');
+    const salidas = node('span', `${room.anunciadas.length} cartas cantadas`, 'cartas-salidas');
+    const terminar = node('button', 'Terminar partida', 'secondary terminar-amigos'); terminar.type = 'button';
+    terminar.onclick = () => busy(terminar, async () => { if (!confirm('¿Terminar la partida para todos?')) return; detenerAuto(); render(await accionAnfitrion('finalizar')); });
+    const fila = node('div', null, 'acciones-anfitrion'); fila.append(sacar, auto, salidas, terminar);
+    panel.replaceChildren(node('h2', '🎤 Tú cantas las cartas'), fila);
+  } else {
+    detenerAuto();
+    const otra = node('button', '🔁 Jugar otra partida con amigos', 'empezar-amigos'); otra.type = 'button';
+    otra.onclick = () => { sessionStorage.removeItem(storageKey); location.href = '/estudiante?amigos=1'; };
+    panel.replaceChildren(node('h2', 'Partida terminada'), otra);
+  }
+}
 function message(text, success = false) { $('message').textContent = text; $('message').classList.toggle('success', success); }
 function showNotice(title, description, buttonText = 'Entendido', avatar = null) {
   let dialog = $('gameNotice');
@@ -124,13 +183,13 @@ function announcedCard(room) {
   panel.append(img, words); return panel;
 }
 let studentAudio = null;
-function playCard(card) {
+function playCard(card, automatico = false) {
   studentAudio?.pause(); window.callarEspanol?.();
   const spanish = () => card.audio_espanol_url ? new Audio(card.audio_espanol_url).play().catch(() => {}) : window.hablarEspanol?.(card.traduccion_espanol);
   if (!card.audio_mazahua_url) { spanish(); return; }
   studentAudio = new Audio(card.audio_mazahua_url);
   studentAudio.onended = () => setTimeout(spanish, 400);
-  studentAudio.play().catch(() => message('Toca de nuevo el botón para escuchar.'));
+  studentAudio.play().catch(() => { if (!automatico) message('Toca de nuevo el botón para escuchar.'); });
 }
 function celebrateWinner(room) {
   if (!room.ganador) return;
@@ -250,8 +309,16 @@ function render(room) {
       mio.title = session.nombre || '';
     }
   }
-  $('phase').textContent = room.estado === 'esperando' ? (teacher ? 'Comparte el código. Inicia cuando tu grupo esté listo.' : 'Ya estás dentro. Espera a que tu docente inicie la partida.') : room.estado === 'en_curso' ? 'Partida en curso. Escucha las cartas y completa tu tablero.' : ['inactividad_docente','duracion_maxima'].includes(room.cierre_motivo) ? 'La partida caducó automáticamente. Pide al docente un código nuevo.' : 'La partida ha finalizado.';
+  $('phase').textContent = room.estado === 'esperando' ? (teacher ? 'Comparte el código. Inicia cuando tu grupo esté listo.' : room.amigos ? (session?.anfitrion ? 'Invita a tus amigos y empieza cuando estén listos.' : 'Ya estás dentro. Espera a que el anfitrión empiece la partida.') : 'Ya estás dentro. Espera a que tu docente inicie la partida.') : room.estado === 'en_curso' ? 'Partida en curso. Escucha las cartas y completa tu tablero.' : ['inactividad_docente','duracion_maxima'].includes(room.cierre_motivo) ? 'La partida caducó automáticamente. Pide al docente un código nuevo.' : 'La partida ha finalizado.';
   document.body.classList.toggle('playing', room.estado !== 'esperando');
+  if (!teacher) {
+    panelAnfitrion(room);
+    // En partidas con amigos, cada celular dice la carta en voz alta al salir.
+    if (room.amigos && room.estado === 'en_curso' && room.ultima_carta && room.secuencia !== ultimoSonido) {
+      if (ultimoSonido !== null) playCard(room.ultima_carta, true);
+      ultimoSonido = room.secuencia;
+    }
+  }
   renderGame(room);
   if (room.estado === 'finalizada' && shownEnd !== room.codigo) {
     shownEnd = room.codigo;
@@ -404,6 +471,13 @@ if (teacher) {
       $('joinHint').textContent = `Vas a entrar a «${p.nombre}» · ${p.lugares_disponibles} ${p.lugares_disponibles === 1 ? 'lugar disponible' : 'lugares disponibles'}. Escribe tu nombre.`;
     }).catch(() => {});
   }
+  const crearAmigos = new URLSearchParams(location.search).get('amigos') === '1' && !/^[A-Z0-9]{6}$/.test(scannedCode);
+  if (crearAmigos && !session?.codigo) {
+    $('codeField').hidden = true; $('joinCode').required = false;
+    document.querySelector('#joinPanel h2').textContent = '👫 Juega con tus amigos';
+    $('joinHint').textContent = 'Escribe tu nombre y arma tu avatar. Después comparte el enlace: tú sacas las cartas y todos juegan desde su celular, sin cartas físicas.';
+    $('join').textContent = 'Crear partida con amigos';
+  }
   let miAvatar = null;
   try { miAvatar = localStorage.getItem('mazahua-avatar'); } catch {}
   if (!miAvatar && window.Avatar) miAvatar = window.Avatar.aleatorio();
@@ -412,7 +486,7 @@ if (teacher) {
   }
   let pending = null;
   $('joinForm').onsubmit = event => { event.preventDefault(); busy($('join'), async () => {
-    const codigo = $('joinCode').value.trim().toUpperCase(), nombre = $('name').value.trim();
+    const codigo = crearAmigos ? 'AMIGOS' : $('joinCode').value.trim().toUpperCase(), nombre = $('name').value.trim();
     if (!pending || pending.codigo !== codigo || pending.nombre !== nombre) {
       const bytes = crypto.getRandomValues(new Uint8Array(16)); bytes[6] = (bytes[6]&15)|64; bytes[8] = (bytes[8]&63)|128;
       const hex = Array.from(bytes,x=>x.toString(16).padStart(2,'0')).join('');
@@ -420,6 +494,13 @@ if (teacher) {
     }
     pending.avatar = miAvatar || undefined;
     try { localStorage.setItem('mazahua-avatar', miAvatar || ''); } catch {}
+    if (crearAmigos) {
+      const sala = await request('/api/amigos', {nombre, solicitud: pending.solicitud, avatar: miAvatar || undefined});
+      session = {codigo: sala.codigo, token: pending.solicitud, nombre, avatar: miAvatar, anfitrion: sala.clave_anfitrion};
+      save(); history.replaceState(null, '', '/estudiante?amigos=1'); render(sala); connect();
+      window.lanzarConfeti?.(40); message(sala.mensaje, true);
+      return;
+    }
     let room;
     try { room = await request('/api/partidas/unirse',pending); }
     catch (error) {

@@ -3,6 +3,8 @@ import asyncio
 import json
 import time
 import secrets
+import hashlib
+import hmac
 import logging
 from contextlib import suppress
 from datetime import datetime, timedelta
@@ -15,7 +17,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, UniqueConstraint, func, or_, insert
 from sqlalchemy.exc import IntegrityError
 
-from database import Base, SessionLocal
+from database import Base, SessionLocal, es_tidb
 from configuracion import ORIGENES_PERMITIDOS, ROOM_IDLE_MINUTES, ROOM_MAX_HOURS, ROOM_RETENTION_DAYS
 from frontend_web import pagina
 
@@ -39,6 +41,8 @@ class Partida(Base):
     secuencia = Column(Integer, nullable=False, default=0, server_default="0")
     ultima_actividad_docente = Column(DateTime, nullable=True)
     cierre_motivo = Column(String(30), nullable=True)
+    # Partida entre amigos (sin cuenta docente): hash de la clave del anfitrión.
+    anfitrion = Column(String(64), nullable=True)
 
 
 def motivo_caducidad(p, ahora=None):
@@ -192,7 +196,8 @@ class Control(BaseModel):
 
 def buscar(db, codigo, bloquear=False):
     q = db.query(Partida).filter(Partida.codigo == codigo.upper())
-    bloqueada = q.with_for_update(read=bloquear == 'compartido') if bloquear else q
+    # Al marcar, varios alumnos leen la sala a la vez (bloqueo compartido); TiDB no lo admite y usa uno normal.
+    bloqueada = q.with_for_update(read=bloquear == 'compartido' and not es_tidb()) if bloquear else q
     p = bloqueada.first()
     if p is None:
         raise HTTPException(404, "El código no existe. Revisa los seis caracteres.")
@@ -232,6 +237,7 @@ def snapshot(db, p):
     return {"id": p.id, "codigo": p.codigo, "nombre": p.nombre, "estado": p.estado, "limite": p.limite,
             "cierre_motivo": p.cierre_motivo,
             "secuencia": p.secuencia,
+            "amigos": bool(p.anfitrion),
             "anunciadas": anunciadas,
             "ultima_carta": tarjeta_json(ultima) if ultima else None,
             "ganador": {"id": ganador.id, "nombre": ganador.nombre, "avatar": ganador.avatar} if ganador else None,
@@ -275,7 +281,7 @@ def mis_partidas(request: Request):
     docente = getattr(request.state, 'docente', None)
     with SessionLocal() as db:
         filas = (db.query(Partida, func.count(Participante.id)).outerjoin(Participante, Participante.partida_id == Partida.id)
-                 .filter(or_(Partida.usuario_id == docente['id'], Partida.usuario_id.is_(None)))
+                 .filter(or_(Partida.usuario_id == docente['id'], (Partida.usuario_id.is_(None) & Partida.anfitrion.is_(None))))
                  .group_by(Partida.id).order_by(Partida.id.desc()).limit(50).all())
         return [{'codigo': p.codigo, 'nombre': p.nombre, 'estado': p.estado, 'limite': p.limite,
                  'participantes': n, 'creada': p.creada.isoformat() if p.creada else None} for p, n in filas]
@@ -313,8 +319,83 @@ def unirse(datos: Ingreso):
         db.add(Participante(partida_id=p.id, nombre=nombre, solicitud=token, avatar=datos.avatar or None))
         db.commit()
         resumen = snapshot(db, p)
-        resumen['mensaje'] = f"¡Listo, {nombre}! Entraste a «{p.nombre}». Espera a que tu docente inicie el juego."
+        resumen['mensaje'] = f"¡Listo, {nombre}! Entraste a «{p.nombre}». Espera a que {'el anfitrión' if p.anfitrion else 'tu docente'} inicie el juego."
         return resumen
+
+
+class NuevaPartidaAmigos(BaseModel):
+    nombre: str = Field(min_length=1, max_length=60)
+    solicitud: UUID
+    avatar: str | None = Field(default=None, max_length=60, pattern=r"^[a-z0-9-]*$")
+
+
+def hash_clave(clave: str) -> str:
+    return hashlib.sha256(clave.encode()).hexdigest()
+
+
+def exigir_anfitrion(p, request: Request):
+    clave = request.headers.get('x-anfitrion', '')
+    if not p.anfitrion or not clave or not hmac.compare_digest(hash_clave(clave), p.anfitrion):
+        raise HTTPException(403, 'Solo quien creó la partida puede controlarla.')
+
+
+@router.post("/api/amigos", status_code=201)
+def crear_con_amigos(datos: NuevaPartidaAmigos):
+    """Partida para jugar con amigos sin cuenta: quien la crea es el anfitrión, juega con su
+    propio tablero y saca las cartas (al azar); los demás entran con el enlace o el QR."""
+    nombre = " ".join(datos.nombre.split())
+    if not nombre or any(ord(c) < 32 for c in nombre):
+        raise HTTPException(422, "Escribe un nombre válido.")
+    clave = secrets.token_urlsafe(24)
+    with SessionLocal() as db:
+        if db.query(Partida).filter(Partida.estado != 'finalizada').count() >= 100:
+            raise HTTPException(429, 'Hay demasiadas partidas abiertas. Intenta más tarde.')
+        for _ in range(10):
+            p = Partida(codigo="".join(secrets.choice("ABCDEFGHJKLMNPQRSTUVWXYZ23456789") for _ in range(6)),
+                        nombre=f"Partida de {nombre}"[:100], limite=30, anfitrion=hash_clave(clave),
+                        ultima_actividad_docente=datetime.utcnow())
+            db.add(p)
+            try:
+                db.flush()
+                db.add(Participante(partida_id=p.id, nombre=nombre, solicitud=str(datos.solicitud), avatar=datos.avatar or None))
+                db.commit()
+                return {**snapshot(db, p), 'clave_anfitrion': clave,
+                        'mensaje': f'¡Partida creada! Comparte el enlace o el QR con tus amigos. Código: {p.codigo}'}
+            except IntegrityError:
+                db.rollback()
+        raise HTTPException(503, "No se pudo generar un código. Intenta de nuevo.")
+
+
+@router.post("/api/amigos/{codigo}/{accion}")
+def controlar_amigos(codigo: str, accion: str, request: Request):
+    from main import Tarjeta
+    with SessionLocal() as db:
+        p = buscar(db, codigo, True)
+        exigir_anfitrion(p, request)
+        if accion == 'iniciar':
+            if p.estado != 'esperando':
+                raise HTTPException(409, 'La partida no está en espera.')
+            preparar_tableros(db, p)
+            p.estado, p.iniciada = 'en_curso', datetime.utcnow()
+        elif accion == 'sacar':
+            if p.estado != 'en_curso':
+                raise HTTPException(409, 'La partida no está en curso.')
+            salieron = {t for (t,) in db.query(Anuncio.tarjeta_id).filter_by(partida_id=p.id)}
+            disponibles = [t for (t,) in db.query(Tarjeta.id) if t not in salieron]
+            if not disponibles:
+                raise HTTPException(409, 'Ya salieron todas las cartas.')
+            carta_id = secrets.choice(disponibles)
+            db.add(Anuncio(partida_id=p.id, tarjeta_id=carta_id))
+            p.ultima_tarjeta_id = carta_id
+            p.secuencia += 1
+        elif accion == 'finalizar':
+            if p.estado != 'finalizada':
+                p.estado, p.finalizada, p.cierre_motivo = 'finalizada', datetime.utcnow(), 'anfitrion'
+        else:
+            raise HTTPException(404, 'Acción desconocida.')
+        p.ultima_actividad_docente = datetime.utcnow()
+        db.commit()
+        return snapshot(db, p)
 
 
 @router.post("/api/partidas/{codigo}/{accion}")
@@ -413,7 +494,7 @@ def reclamar(codigo: str, datos: Reclamo):
             raise HTTPException(409, f'Tienes {len(marcadas)} de 16 casillas marcadas. Completa las {16 - len(marcadas)} restantes para reclamar lotería.')
         pendientes = cartas - anunciadas
         if pendientes:
-            raise HTTPException(409, f'Tus 16 casillas están marcadas, pero faltan {len(pendientes)} cartas de tu tablero por anunciar. Espera a que el docente las anuncie para reclamar lotería.')
+            raise HTTPException(409, f'Tus 16 casillas están marcadas, pero faltan {len(pendientes)} cartas de tu tablero por anunciar. Espera a que salgan para reclamar lotería.')
         alumno.gano = True
         p.estado, p.finalizada = 'finalizada', datetime.utcnow()
         p.cierre_motivo = 'loteria'

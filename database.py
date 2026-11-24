@@ -31,4 +31,26 @@ engine = create_engine(DATABASE_URL, pool_pre_ping=True, pool_recycle=1800,
                        max_overflow=int(os.getenv('DB_MAX_OVERFLOW', '5')),
                        pool_timeout=int(os.getenv('DB_POOL_TIMEOUT', '15')), connect_args=opciones_conexion)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+_ES_TIDB = None
+
+
+def es_tidb():
+    """TiDB (base en la nube compatible con MySQL) no admite bloqueos compartidos
+    («LOCK IN SHARE MODE»), así que en ese caso se usa un bloqueo normal."""
+    global _ES_TIDB
+    if _ES_TIDB is None:
+        if engine.dialect.name != 'mysql':
+            _ES_TIDB = False
+        elif 'tidb' in DB_HOST.lower() or os.getenv('DB_TIDB', '').lower() == 'true':
+            _ES_TIDB = True  # p. ej. gateway01.us-west-2.prod.aws.tidbcloud.com
+        else:
+            try:
+                with engine.connect() as conexion:
+                    _ES_TIDB = 'tidb' in str(conexion.exec_driver_sql('SELECT VERSION()').scalar()).lower()
+            except Exception:
+                return True  # ante la duda, el bloqueo normal funciona en MySQL, MariaDB y TiDB
+    return _ES_TIDB
+
+
 Base = declarative_base()

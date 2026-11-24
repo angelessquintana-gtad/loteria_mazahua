@@ -37,13 +37,15 @@
       return b;
     }));
     $('tablero').setAttribute('aria-busy', 'false');
-    if (!$('tablero').style.width) requestAnimationFrame(ajustar);
+    if (!$('tablero').style.width && innerWidth > 860) requestAnimationFrame(ajustar);
   }
   // El tablero se achica para caber en la pantalla y el conjunto (panel + tablero) queda centrado.
   function ajustar() {
     const capa = document.querySelector('.sim-layout'), t = $('tablero');
     if (!capa || !window.ajustarTablero) return;
     capa.style.maxWidth = '';
+    // En celular el tablero ocupa todo el ancho y la carta cantada queda fija arriba al desplazarse.
+    if (innerWidth <= 860) { t.style.width = ''; return; }
     window.ajustarTablero(t);
     if (t.style.width && innerWidth > 860) {
       const panel = document.querySelector('.sim-panel').getBoundingClientRect().width;
